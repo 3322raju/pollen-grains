@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pollen Classifier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 50px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="file"], input[type="submit"] {
+      margin: 10px 0;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pollen Grain Classification</h1>
+  <form action="/result" method="POST" enctype="multipart/form-data">
+    <label>Select Pollen Image:</label><br>
+    <input type="file" name="file" accept="image/*" required>
+    <br>
+    <input type="submit" value="Classify">
+  </form>
+
+  {% if prediction %}
+    <div class="result">
+      <h2>Prediction: {{ prediction }}</h2>
+      {% if image_filename %}
+        <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" width="300">
+      {% endif %}
+    </div>
+  {% endif %}
+
+</body>
+</html>
